@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.hacknews.Article.Article
 import com.example.hacknews.Article.ArticleResponse
+import kotlinx.android.synthetic.main.fragment_new_news.*
 import kotlinx.android.synthetic.main.fragment_the_best_news.*
 import kotlinx.android.synthetic.main.fragment_top_news.*
 import retrofit2.Call
@@ -49,10 +50,16 @@ class TheBestNewsFragment : HackerNewsTabFragment() {
                                 val score = response.body()?.score.toString()
                                 val descendants = response.body()?.descendants.toString()
                                 val type = response.body()?.type.toString()
-                                val url = response.body()?.url.toString()
-                                list.add(Article(title, url, author, score, descendants, type))
+                                val unixTime = response.body()?.time.toString()
 
-                                if(context != null){
+                                val sdf = java.text.SimpleDateFormat("yy-MM-dd HH:mm")
+                                val date = java.util.Date(unixTime.toLong() * 1000)
+                                val time = sdf.format(date)
+
+                                val url = response.body()?.url.toString()
+                                list.add(Article(title, url, author, score, descendants, type, time))
+
+                                if (context != null) {
                                     val adapter = NewsAdapter(context!!, list)
                                     the_best_news_recycler_view.adapter = adapter
                                     adapter.notifyDataSetChanged()

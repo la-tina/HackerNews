@@ -8,7 +8,7 @@ class HackerNewsTabAdapter(
     fragmentManager: FragmentManager,
     private var fragments: List<Fragment>
 ) : FragmentStatePagerAdapter(fragmentManager) {
-    
+
     private val tabTitles = arrayOf("New", "Top", "The Best")
 
     override fun getPageTitle(position: Int): CharSequence? {

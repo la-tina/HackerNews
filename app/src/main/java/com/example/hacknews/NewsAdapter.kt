@@ -32,6 +32,7 @@ class NewsAdapter(
         holder.score.text = list[position].score
         holder.comments.text = list[position].descendants
         holder.type.text = list[position].type
+        holder.time.text = list[position].time
         holder.title.text = list[position].title
 
         holder.title.setOnClickListener {
@@ -77,5 +78,6 @@ class NewsAdapter(
         internal var score: TextView = itemView.news_row_score as TextView
         internal var comments: TextView = itemView.news_row_comments as TextView
         internal var type: TextView = itemView.news_row_type as TextView
+        internal var time: TextView = itemView.news_row_time as TextView
     }
 }

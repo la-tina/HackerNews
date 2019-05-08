@@ -6,5 +6,6 @@ data class Article(
     var author: String,
     var score: String,
     var descendants: String,
-    var type: String
+    var type: String,
+    var time: String
 )
