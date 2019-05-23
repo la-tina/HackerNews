@@ -7,5 +7,6 @@ data class Article(
     var score: String,
     var descendants: String,
     var type: String,
-    var time: String
+    var time: String,
+    var id: Int
 )

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/hacker_news_coordinator"
     android:layout_width="match_parent"
@@ -18,8 +17,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbarTop"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@android:color/holo_orange_dark"
+            android:layout_height="70dp"
+            android:background="@color/colorAccent"
             app:title="Hacker News"
             app:titleTextAppearance="@style/Toolbar.TitleText"
             app:titleTextColor="@color/titleColor" />
@@ -31,7 +30,7 @@
         style="@style/CustomTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_orange_light"
+        android:background="@color/colorPrimary"
         app:layout_constraintTop_toBottomOf="@id/hacker_news_app_bar"
         app:tabSelectedTextColor="@android:color/background_light"
         app:tabTextColor="#FFD58000">

@@ -1,0 +1,15 @@
+
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="text_padding">20dp</dimen>
+
+    <dimen name="padding_xs">4dp</dimen>
+    <dimen name="padding_sm">8dp</dimen>
+    <dimen name="padding_md">16dp</dimen>
+    <dimen name="padding_lg">24dp</dimen>
+    <dimen name="padding_xl">32dp</dimen>
+
+    <dimen name="item_single_line">56dp</dimen>
+    <dimen name="item_double_line">72dp</dimen>
+</resources>

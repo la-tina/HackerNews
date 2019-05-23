@@ -5,12 +5,46 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/comments_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarTop"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/holo_orange_dark"
+            app:navigationIcon="@drawable/ic_keyboard_arrow_left_black_24dp"
+            app:title="Comments"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/titleColor" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/article_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lightYellow"
+        android:padding="5dp"
+        android:paddingStart="8dp"
+        android:textColor="@color/lightOrange"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/comments_app_bar" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/comments_recycler_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/article_title" />
 </android.support.constraint.ConstraintLayout>

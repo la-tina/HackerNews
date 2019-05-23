@@ -5,12 +5,15 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.hacknews.Article.NewNewsFragment
+import com.example.hacknews.Article.TheBestNewsFragment
+import com.example.hacknews.Article.TopNewsFragment
 import kotlinx.android.synthetic.main.fragment_hacker_news.*
 
 
 class HackerNewsFragment : Fragment() {
 
-    lateinit var onNavigationChangedListener: OnNavigationChangedListener
+    lateinit var onNavigationChangedListener: OnClickedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_hacker_news, container, false)

@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@android:color/holo_orange_light</color>
-    <color name="lightOrange">#FFFFF3EA</color>
+    <color name="lightOrange">#fff2de</color>
+    <color name="lightYellow">#ffb457</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">@android:color/holo_orange_dark</color>
     <color name="titleColor">#fffafa</color>
+
+    <color name="primary">#8BC34A</color>
+    <color name="primary_dark">#689F38</color>
+    <color name="primary_light">#DCEDC8</color>
+    <color name="accent">#CDDC39</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#212121</color>
+    <color name="divider">#BDBDBD</color>
+
+
+    <array name="commentColors">
+        <item>#03A9F4</item>
+        <item>#4CAF50</item>
+        <item>#9C27B0</item>
+        <item>#FFEB3B</item>
+        <item>#FF9800</item>
+        <item>#F44336</item>
+    </array>
+
 </resources>

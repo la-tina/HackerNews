@@ -3,9 +3,10 @@ package com.example.hacknews
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import com.example.hacknews.Comment.CommentsFragment
 
 
-class MainActivity : AppCompatActivity(), OnNavigationChangedListener {
+class MainActivity : AppCompatActivity(), OnClickedListener {
 
     private var currentFragment: Fragment? = null
 
@@ -30,10 +31,8 @@ class MainActivity : AppCompatActivity(), OnNavigationChangedListener {
         }
     }
 
-    override fun onNavigationChanged(tabNumber: Int) {
-        when (tabNumber) {
-            HACKER_NEWS_TAB -> openHackerNewsTab()
-        }
+    override fun onArticleCommentsClicked(articleId: Int) {
+        openCommentsTab(articleId)
     }
 
     private fun setDefaultCurrentFragment() {
@@ -68,6 +67,17 @@ class MainActivity : AppCompatActivity(), OnNavigationChangedListener {
         openMainTab(fragment, hackerNewsTag)
     }
 
+    private fun openCommentsTab(articleId: Int) {
+        val previouslyAddedCommentsFragment = supportFragmentManager.findFragmentByTag(commentsTag)
+        val fragment = (previouslyAddedCommentsFragment as? CommentsFragment) ?: CommentsFragment()
+
+        fragment.onNavigationChangedListener = this
+
+        val bundle = Bundle().apply { putSerializable(ARTICLE_KEY, articleId) }
+        fragment.arguments = bundle
+        openMainTab(fragment, commentsTag)
+    }
+
     private fun openMainTab(fragment: Fragment, tag: String) {
         currentFragment = fragment
 
@@ -77,11 +87,12 @@ class MainActivity : AppCompatActivity(), OnNavigationChangedListener {
                 android.R.anim.fade_in,
                 android.R.anim.fade_out
             )
+            .addToBackStack("a")
             .replace(R.id.fragment_container, fragment, tag)
             .commit()
     }
 }
 
-interface OnNavigationChangedListener {
-    fun onNavigationChanged(tabNumber: Int)
+interface OnClickedListener {
+    fun onArticleCommentsClicked(articleId: Int)
 }
