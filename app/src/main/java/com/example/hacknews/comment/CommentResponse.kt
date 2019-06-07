@@ -1,4 +1,4 @@
-package com.example.hacknews.Comment
+package com.example.hacknews.comment
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

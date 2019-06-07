@@ -1,4 +1,4 @@
-package com.example.hacknews.Article
+package com.example.hacknews.article
 
 import android.app.AlertDialog
 import android.content.Context
@@ -45,12 +45,11 @@ class NewsAdapter(
 
         holder.author.text = list[position].author
         holder.score.text = list[position].score
-        holder.comments.text = list[position].descendants
+        if(list[position].descendants == "null") holder.comments.text = "0"
+        else holder.comments.text = list[position].descendants
         holder.type.text = list[position].type
         holder.time.text = list[position].time
         holder.title.text = list[position].title
-//        var kids = list[position].kids
-        //holder.id.text.toString().toInt() = list[position].id
 
         holder.title.setOnClickListener {
 

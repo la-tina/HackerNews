@@ -13,7 +13,6 @@ object ApiClient {
 
     private var retrofit: Retrofit? = null
 
-    //context: Context
     fun getClient(): Retrofit {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -33,6 +32,7 @@ object ApiClient {
                 )
                 .build()
         }
+
         return retrofit!!
     }
 }

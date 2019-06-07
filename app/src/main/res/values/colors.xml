@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@android:color/holo_orange_light</color>
-    <color name="lightOrange">#fff2de</color>
+    <color name="lightOrange">#FFF3E0</color>
     <color name="lightYellow">#ffb457</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">@android:color/holo_orange_dark</color>
     <color name="titleColor">#fffafa</color>
+    <color name="orange">#FF5722</color>
+    <color name="cyclamic">#ff1744</color>
+
 
     <color name="primary">#8BC34A</color>
     <color name="primary_dark">#689F38</color>
@@ -18,12 +21,37 @@
 
 
     <array name="commentColors">
-        <item>#03A9F4</item>
+        <item>#8BC34A</item>
+        <item>#ba68c8</item>
+        <item>#ff9800</item>
+        <item>#ff1744</item>
         <item>#4CAF50</item>
-        <item>#9C27B0</item>
-        <item>#FFEB3B</item>
-        <item>#FF9800</item>
+        <item>#64b5f6</item>
+        <item>#b39ddb</item>
+        <item>#E91E63</item>
+        <item>#00c853</item>
+        <item>#2196F3</item>
+        <item>#FE7F9C</item>
         <item>#F44336</item>
+        <item>#009688</item>
+        <item>#FF9800</item>
+        <item>#673AB7</item>
+        <item>#b39ddb</item>
+        <item>#8BC34A</item>
+        <item>#2196F3</item>
+        <item>#E91E63</item>
+        <item>#FFC107</item>
+        <item>#ee45ef</item>
+        <item>#4CAF50</item>
+        <item>#F44336</item>
+        <item>#673AB7</item>
+        <item>#2196F3</item>
+        <item>#FE7F9C</item>
+        <item>#F44336</item>
+        <item>#CAF504</item>
+        <item>#67dAB7</item>
+        <item>#F48336</item>
+        <item>#E91E63</item>
     </array>
 
 </resources>

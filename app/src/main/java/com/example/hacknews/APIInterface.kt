@@ -1,7 +1,7 @@
 package com.example.hacknews
 
-import com.example.hacknews.Article.ArticleResponse
-import com.example.hacknews.Comment.CommentResponse
+import com.example.hacknews.article.ArticleResponse
+import com.example.hacknews.comment.CommentResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,7 +22,4 @@ interface ApiInterface {
 
     @GET("v0/item/{id}.json?print=pretty")
     fun getItem(@Path("id") id: Int): Call<CommentResponse>
-
-    @GET("v0/item/{id}.json?print=pretty")
-    fun comments(@Path("id") id: Int): Call<List<Int>>
 }

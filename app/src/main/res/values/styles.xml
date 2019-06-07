@@ -12,7 +12,7 @@
     </style>
 
     <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@android:color/holo_orange_dark</item>
+        <item name="tabIndicatorColor">@color/cyclamic</item>
     </style>
 
     <style name="TabLayoutTextStyle">

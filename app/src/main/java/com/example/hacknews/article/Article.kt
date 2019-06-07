@@ -1,4 +1,4 @@
-package com.example.hacknews.Article
+package com.example.hacknews.article
 
 data class Article(
     var title: String,

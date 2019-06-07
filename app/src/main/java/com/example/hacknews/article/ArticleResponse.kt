@@ -1,4 +1,4 @@
-package com.example.hacknews.Article
+package com.example.hacknews.article
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

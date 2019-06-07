@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/comment_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,14 +10,13 @@
 
     <View
         android:id="@+id/color"
-        android:layout_width="13dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/comment"
-        android:layout_alignParentTop="true"
+        android:layout_width="5dp"
+        android:layout_height="20dp"
         android:background="@color/colorAccent"
-        app:layout_constraintEnd_toStartOf="@id/comment"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+    </View>
 
     <TextView
         android:id="@+id/user"
@@ -45,12 +45,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user"
         tools:text="comment" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

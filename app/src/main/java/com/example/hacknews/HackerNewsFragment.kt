@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.hacknews.Article.NewNewsFragment
-import com.example.hacknews.Article.TheBestNewsFragment
-import com.example.hacknews.Article.TopNewsFragment
+import com.example.hacknews.article.NewNewsFragment
+import com.example.hacknews.article.TheBestNewsFragment
+import com.example.hacknews.article.TopNewsFragment
 import kotlinx.android.synthetic.main.fragment_hacker_news.*
 
 
@@ -33,17 +33,17 @@ class HackerNewsFragment : Fragment() {
 
     private fun setupViewPager() {
         // Create an adapter that knows which fragment should be shown on each page
-        val topNewsFragment =
-            TopNewsFragment()
-        topNewsFragment.setOnNavigationChangedListener(onNavigationChangedListener)
+        val topNewsFragment = TopNewsFragment().apply {
+            setOnNavigationChangedListener(onNavigationChangedListener)
+        }
 
-        val newNewsFragment =
-            NewNewsFragment()
-        newNewsFragment.setOnNavigationChangedListener(onNavigationChangedListener)
+        val newNewsFragment = NewNewsFragment().apply {
+            setOnNavigationChangedListener(onNavigationChangedListener)
+        }
 
-        val theBestNewsFragment =
-            TheBestNewsFragment()
-        theBestNewsFragment.setOnNavigationChangedListener(onNavigationChangedListener)
+        val theBestNewsFragment = TheBestNewsFragment().apply {
+            setOnNavigationChangedListener(onNavigationChangedListener)
+        }
 
         val fragments = listOf(newNewsFragment, topNewsFragment, theBestNewsFragment)
 
