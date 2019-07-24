@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lightOrange"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <View
         android:id="@+id/color"
         android:layout_width="5dp"
-        android:layout_height="20dp"
+        android:layout_height="50dp"
         android:background="@color/colorAccent"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,17 +22,29 @@
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:paddingStart="12dp"
+        android:paddingStart="10dp"
         android:paddingTop="@dimen/padding_sm"
         android:paddingEnd="@dimen/padding_sm"
-        android:textSize="16dp"
+        android:textSize="17dp"
+        android:fontFamily="sans-serif-light"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="some_user posted on 11/20/1994" />
+        tools:text="some_user" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:textSize="14dp"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/comment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user"
+        tools:text="11/20/1994" />
 
     <TextView
         android:id="@+id/comment"
@@ -41,8 +53,10 @@
         android:layout_below="@+id/user"
         android:padding="8dp"
         android:paddingStart="12dp"
+        android:textSize="14dp"
+        android:fontFamily="sans-serif-light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user"
+        app:layout_constraintTop_toBottomOf="@id/date"
         tools:text="comment" />
 </android.support.constraint.ConstraintLayout>

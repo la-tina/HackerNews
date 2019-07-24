@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.example.hacknews.comment.CommentsFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), OnClickedListener {
@@ -28,6 +29,25 @@ class MainActivity : AppCompatActivity(), OnClickedListener {
                 .beginTransaction()
                 .add(R.id.fragment_container, currentFragment!!, getFragmentTag)
                 .commit()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        bottom_navigation.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_news -> {
+                    openHackerNewsTab()
+                    true
+                }
+                R.id.action_search -> {
+                    openSearchTab()
+                    true
+                }
+
+                else -> true
+            }
         }
     }
 
@@ -65,6 +85,15 @@ class MainActivity : AppCompatActivity(), OnClickedListener {
         fragment.onNavigationChangedListener = this
 
         openMainTab(fragment, HACKER_NEWS_TAG)
+    }
+
+    private fun openSearchTab() {
+        val previouslyAddedSearchFragment = supportFragmentManager.findFragmentByTag(SEARCH_TAG)
+        val fragment = (previouslyAddedSearchFragment as? SearchFragment) ?: SearchFragment()
+
+        fragment.onNavigationChangedListener = this
+
+        openMainTab(fragment, SEARCH_TAG)
     }
 
     private fun openCommentsTab(articleId: Int) {

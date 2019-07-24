@@ -9,4 +9,7 @@
     <string name="points">points</string>
     <string name="comments">comments</string>
     <string name="line">|</string>
+    <string name="news">News</string>
+    <string name="search">Search</string>
+    <string name="no_comments_yet">No comments yet!</string>
 </resources>

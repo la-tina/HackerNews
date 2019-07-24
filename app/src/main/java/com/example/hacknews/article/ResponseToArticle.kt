@@ -9,7 +9,7 @@ fun ArticleResponse.toArticle(): Article {
     val type = type.toString()
     val unixTime = time.toString()
 
-    val simpleDataFormat = java.text.SimpleDateFormat("yy-MM-dd HH:mm")
+    val simpleDataFormat = java.text.SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss")
     val date = java.util.Date(unixTime.toLong() * 1000)
     val time = simpleDataFormat.format(date)
 

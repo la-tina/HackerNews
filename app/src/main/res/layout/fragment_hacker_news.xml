@@ -17,8 +17,9 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbarTop"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/colorAccent"
+            android:layout_height="60dp"
+            android:fontFamily="sans-serif-light"
+            android:background="@color/lightYellow"
             app:title="Hacker News"
             app:titleTextAppearance="@style/Toolbar.TitleText"
             app:titleTextColor="@color/titleColor" />
@@ -27,13 +28,13 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout_hacker_news"
-        style="@style/CustomTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:layout_height="40dp"
+        android:background="@color/lightYellow"
+        android:fontFamily="sans-serif-light"
         app:layout_constraintTop_toBottomOf="@id/hacker_news_app_bar"
         app:tabSelectedTextColor="@android:color/background_light"
-        app:tabTextColor="#FFD58000">
+        app:tabTextColor="@color/tabText">
 
         <android.support.design.widget.TabItem
             android:id="@+id/new_news"

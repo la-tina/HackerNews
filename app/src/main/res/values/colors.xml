@@ -2,12 +2,15 @@
 <resources>
     <color name="colorPrimary">@android:color/holo_orange_light</color>
     <color name="lightOrange">#FFF3E0</color>
-    <color name="lightYellow">#ffb457</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">@android:color/holo_orange_dark</color>
     <color name="titleColor">#fffafa</color>
     <color name="orange">#FF5722</color>
     <color name="cyclamic">#ff1744</color>
+    <color name="yellow">#fff59d</color>
+    <color name="teal">#80CBC4</color>
+    <color name="lightYellow">#FFB74D</color>
+    <color name="tabText">#FFD58000</color>
 
 
     <color name="primary">#8BC34A</color>

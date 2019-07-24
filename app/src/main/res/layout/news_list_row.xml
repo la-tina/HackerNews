@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/row_item"
     android:layout_width="match_parent"
     android:layout_height="105dp"
-    android:background="@color/lightOrange">
-
+    android:background="@android:color/white">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="54dp"
+        android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_orange_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/star_icon"
             android:layout_width="37dp"
             android:layout_height="32dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_star_pink"
+            android:src="@drawable/ic_star_yellow"
             app:layout_constraintEnd_toEndOf="@+id/news_row_score"
+            app:layout_constraintHorizontal_bias="0.545"
             app:layout_constraintStart_toStartOf="@+id/news_row_score"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,22 +31,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
-            android:fontFamily="sans-serif-medium"
-            android:padding="4dp"
+            android:fontFamily="sans-serif-light"
+            android:padding="2dp"
             android:text="34534"
             android:textAlignment="viewStart"
-            android:textColor="@color/cyclamic"
+            android:textColor="@color/teal"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/star_icon" />
-
-
     </android.support.constraint.ConstraintLayout>
 
     <TextView
@@ -55,9 +49,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="sans-serif-light"
         android:padding="8dp"
-        android:text="Title"
         android:textAlignment="viewStart"
         android:textSize="17sp"
         android:textStyle="bold"
@@ -67,13 +60,12 @@
         app:layout_constraintEnd_toStartOf="@+id/comment_icon"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/news_row_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="sans-serif-light"
         android:padding="8dp"
         android:text="Title"
         android:textAlignment="viewStart"
@@ -90,80 +82,51 @@
         android:id="@+id/news_row_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif-medium"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-light"
+        android:padding="2dp"
         android:text="Time"
         android:textAlignment="viewStart"
         android:textColor="@color/colorAccent"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/comment_icon"
         app:layout_constraintEnd_toStartOf="@+id/comment_icon"
-        app:layout_constraintTop_toTopOf="@+id/comment_icon" />
+        app:layout_constraintTop_toTopOf="@+id/comment_icon"
+        app:layout_constraintVertical_bias="0.111" />
 
-    <TextView
+    <ImageView
         android:id="@+id/by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:padding="4dp"
-        android:text="@string/by"
-        android:textAlignment="viewStart"
-        android:textSize="14sp"
+        android:padding="3dp"
+        android:src="@drawable/ic_person"
         app:layout_constraintBottom_toBottomOf="@+id/news_row_author"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-        app:layout_constraintTop_toTopOf="@+id/news_row_author" />
+        app:layout_constraintTop_toTopOf="@+id/news_row_author"  />
 
     <TextView
         android:id="@+id/news_row_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:padding="3dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-light"
+        android:padding="2dp"
         android:text="Author"
         android:textAlignment="viewStart"
         android:textSize="15sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/by" />
-
-    <TextView
-        android:id="@+id/news_row_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="sans-serif-medium"
-        android:padding="4dp"
-        android:text="Type"
-        android:textAlignment="viewStart"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/line"
-        app:layout_constraintEnd_toStartOf="@+id/line"
-        app:layout_constraintTop_toTopOf="@+id/line"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="sans-serif-medium"
-        android:padding="4dp"
-        android:text="@string/line"
-        android:textAlignment="viewStart"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/news_row_comments"
-        app:layout_constraintEnd_toStartOf="@+id/news_row_comments"
-        app:layout_constraintTop_toTopOf="@+id/news_row_comments"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/news_row_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="sans-serif-medium"
-        android:padding="4dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-light"
+        android:padding="2dp"
         android:text="Comments"
         android:textAlignment="viewStart"
         android:textSize="14sp"
@@ -174,33 +137,21 @@
         android:id="@+id/comment_icon"
         android:layout_width="27dp"
         android:layout_height="22dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/ic_comment"
         app:layout_constraintBottom_toBottomOf="@+id/news_row_comments"
-        app:layout_constraintEnd_toEndOf="@+id/news_row_comments"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="@+id/news_row_comments" />
+        app:layout_constraintEnd_toStartOf="@+id/news_row_comments"
+        app:layout_constraintTop_toTopOf="@+id/news_row_comments"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/share_icon"
         android:layout_width="27dp"
         android:layout_height="22dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="28dp"
-        android:src="@drawable/ic_share_black_24dp"
-        app:layout_constraintEnd_toEndOf="@+id/comment_icon"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/comment_icon"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_share_orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/news_row_comments"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/holo_orange_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-    </View>
-
 </android.support.constraint.ConstraintLayout>
