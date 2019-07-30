@@ -40,7 +40,7 @@
     <View
         android:id="@+id/top_news_bottom"
         android:layout_width="match_parent"
-        android:layout_height="48sp"
+        android:layout_height="68sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

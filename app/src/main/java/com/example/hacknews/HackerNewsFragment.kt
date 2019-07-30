@@ -49,7 +49,7 @@ class HackerNewsFragment : Fragment() {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 //                if (first) {
-                    onPageSelected(position)
+                onPageSelected(position)
 //                    first = false
 //                }
             }

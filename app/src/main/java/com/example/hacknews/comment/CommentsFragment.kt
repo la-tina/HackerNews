@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -17,7 +18,6 @@ import com.example.hacknews.article.ArticleResponse
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_article_comments.*
 
@@ -34,11 +34,11 @@ internal class CommentsFragment : Fragment() {
 
     private val apiClient = ApiClient()
 
-    private val paginator = BehaviorProcessor.create<Int>()
-
+    private var articleKids: Int = 0
     private var rootId: Int = 0
     private var articleUrl: String = ""
-    private var depth: Int = 0
+    private var kids: Int = 0
+    private var commentsKids: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_article_comments, container, false)
@@ -46,6 +46,7 @@ internal class CommentsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        Log.i("onResume", "on Resume")
         toolbarTop.setNavigationOnClickListener {
             fragmentManager?.popBackStackImmediate()
         }
@@ -64,11 +65,22 @@ internal class CommentsFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        kids = 0
+        commentsKids = 0
+        articleKids = 0
+
+        comments_recycler_view.visibility = View.INVISIBLE
+        Log.i("onStop", "on Stop")
         compositeDisposable.clear()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        kids = 0
+        commentsKids = 0
+        articleKids = 0
+
+        Log.i("onDestroy", "on Destroy")
         compositeDisposable.dispose()
     }
 
@@ -120,27 +132,35 @@ internal class CommentsFragment : Fragment() {
         }
     }
 
-    @Synchronized
-    fun addCommentToList(comment: Comment) {
+    private fun addCommentToList(comment: Comment) {
         if (comment.commentId != null
             && comment.commentBy != "" && comment.commentTime != 0L && comment.commentText != null
             && comment.parent != -1 && comment.type != "" && comments_recycler_view != null
         ) {
             (comments_recycler_view.adapter as CommentsAdapter).addCommentsArrangement(comment)
+
+            if (kids == articleKids + commentsKids || kids == articleKids + commentsKids + 1
+                || kids == articleKids + commentsKids - 1
+            ) {
+                progress_bar_comments.visibility = View.INVISIBLE
+                comments_recycler_view.visibility = View.VISIBLE
+            }
         }
     }
 
     private fun requestCurrentArticleData(articleId: Int) {
-        compositeDisposable.add(apiClient.getApiServiceWithRx().getArticle(articleId)
+        val observable = apiClient.getApiServiceWithRx().getArticle(articleId)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {
                 articleTitleTextView.text = it.title!!
                 articleUrl = it.url!!
                 if (it.kids == null) setupEmptyView()
+                articleKids = it.kids?.size!!
             }
             .flatMap { article ->
                 articleRes = article
-                Observable.fromIterable(article.kids).subscribeOn(Schedulers.io()) }
+                Observable.fromIterable(article.kids).subscribeOn(Schedulers.io())
+            }
             .concatMapEager { articleKidId ->
                 apiClient.getApiServiceWithRx().getItem(articleKidId).subscribeOn(Schedulers.io())
             }
@@ -152,13 +172,16 @@ internal class CommentsFragment : Fragment() {
                     articleUrl = articleRes.url!!
                     if (articleTitleTextView != null) articleTitleTextView.text = articleTitle
 
+                    progress_bar_comments.visibility = View.VISIBLE
+
                     if (articleKid != null) {
                         addChildren(0, articleKid.commentId!!)
                     }
                 }
                 , { println("onError!") }
                 , { println("onComplete!") })
-        )
+
+        compositeDisposable.add(observable)
     }
 
     private fun addChildren(depth: Int, commentId: Int) {
@@ -167,6 +190,7 @@ internal class CommentsFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { articleKid ->
+                    kids++
                     //add comments to the commentsList
                     val parentComment = buildCommentFromResponse(depth, articleKid)
 
@@ -175,7 +199,7 @@ internal class CommentsFragment : Fragment() {
                     val commentKids = articleKid.commentKids
 
                     for (child in commentKids!!) {
-
+                        commentsKids++
                         addChildren(depth + 1, child)
                     }
                 }

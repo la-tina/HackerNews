@@ -9,8 +9,9 @@
     <color name="cyclamic">#ff1744</color>
     <color name="yellow">#fff59d</color>
     <color name="teal">#80CBC4</color>
+    <color name="buttonPressed">#FFCC80</color>
     <color name="lightYellow">#FFB74D</color>
-    <color name="tabText">#FFD58000</color>
+    <color name="tabText">#fb8c00</color>
 
 
     <color name="primary">#8BC34A</color>

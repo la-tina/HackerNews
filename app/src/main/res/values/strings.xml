@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Hacker News</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="top">Top</string>
     <string name="the_best">The Best</string>
@@ -12,4 +11,6 @@
     <string name="news">News</string>
     <string name="search">Search</string>
     <string name="no_comments_yet">No comments yet!</string>
+    <string name="title">Title</string>
+    <string name="time">Time</string>
 </resources>

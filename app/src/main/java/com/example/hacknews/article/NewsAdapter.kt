@@ -46,8 +46,6 @@ class NewsAdapter(
         holder.score.text = list[position].score
         if (list[position].descendants == "null") holder.comments.text = "0"
         else holder.comments.text = list[position].descendants
-//        holder.type.text = list[position].type
-//        holder.time.text = list[position].time
 
         convertTime(list[position].time, holder)
 
@@ -137,7 +135,6 @@ class NewsAdapter(
         internal var author: TextView = itemView.news_row_author as TextView
         internal var score: TextView = itemView.news_row_score as TextView
         internal var comments: TextView = itemView.news_row_comments as TextView
-        //        internal var type: TextView = itemView.news_row_type as TextView
         internal var time: TextView = itemView.news_row_time as TextView
         internal var id: TextView = itemView.news_row_id as TextView
         internal var shareIcon: ImageView = itemView.share_icon as ImageView

@@ -66,6 +66,7 @@ internal class CommentsAdapter(
             .replace("</a>", "\n")
 
 
+
         holder.comment.text = list
         val simpleDataFormat = SimpleDateFormat.getDateTimeInstance()
         val date = java.util.Date(item.commentTime * 1000)

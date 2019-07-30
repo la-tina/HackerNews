@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/row_item"
     android:layout_width="match_parent"
-    android:layout_height="105dp"
+    android:layout_height="wrap_content"
     android:background="@android:color/white">
 
     <android.support.constraint.ConstraintLayout
@@ -22,7 +22,6 @@
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_star_yellow"
             app:layout_constraintEnd_toEndOf="@+id/news_row_score"
-            app:layout_constraintHorizontal_bias="0.545"
             app:layout_constraintStart_toStartOf="@+id/news_row_score"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,14 +64,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif-light"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/montserrat"
         android:padding="8dp"
-        android:text="Title"
+        android:text="@string/title"
         android:textAlignment="viewStart"
         android:textSize="17sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/news_row_author"
         app:layout_constraintEnd_toStartOf="@+id/share_icon"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent"
@@ -86,51 +85,48 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-light"
         android:padding="2dp"
-        android:text="Time"
+        android:text="@string/time"
         android:textAlignment="viewStart"
         android:textColor="@color/colorAccent"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/comment_icon"
         app:layout_constraintEnd_toStartOf="@+id/comment_icon"
         app:layout_constraintTop_toTopOf="@+id/comment_icon"
-        app:layout_constraintVertical_bias="0.111" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="3dp"
+        android:layout_marginStart="4dp"
         android:src="@drawable/ic_person"
         app:layout_constraintBottom_toBottomOf="@+id/news_row_author"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-        app:layout_constraintTop_toTopOf="@+id/news_row_author"  />
+        app:layout_constraintTop_toTopOf="@+id/news_row_author" />
 
     <TextView
         android:id="@+id/news_row_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-light"
         android:padding="2dp"
         android:text="Author"
         android:textAlignment="viewStart"
         android:textSize="15sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/white_view"
         app:layout_constraintStart_toEndOf="@+id/by" />
 
     <TextView
         android:id="@+id/news_row_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
         android:fontFamily="sans-serif-light"
         android:padding="2dp"
         android:text="Comments"
         android:textAlignment="viewStart"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/white_view"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
@@ -154,4 +150,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/news_row_comments"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/white_view"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:backgroundTint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

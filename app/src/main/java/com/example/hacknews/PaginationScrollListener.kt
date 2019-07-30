@@ -26,6 +26,5 @@ abstract class PaginationScrollListener(private var layoutManager: LinearLayoutM
             }
         }
     }
-
     protected abstract fun loadMoreItems()
 }

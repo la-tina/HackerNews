@@ -3,7 +3,6 @@ package com.example.hacknews
 import com.example.hacknews.article.ArticleResponse
 import com.example.hacknews.comment.CommentResponse
 import io.reactivex.Observable
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
@@ -31,34 +30,48 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="@color/colorAccent"
         android:fontFamily="sans-serif-light"
+        android:textColor="@color/teal"
         app:layout_constraintEnd_toStartOf="@id/search_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hacker_news_app_bar" />
 
     <Button
         android:id="@+id/search_button"
-        android:layout_width="82dp"
-        android:layout_height="43dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/lightYellow"
+        android:background="@drawable/color_change"
+        android:fontFamily="sans-serif-light"
         android:text="@string/search"
         android:textColor="@android:color/white"
-        android:textSize="17dp"
-        android:fontFamily="sans-serif-light"
-        app:layout_constraintBottom_toTopOf="@+id/search_recycler_view"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/search_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/search_edit_text" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="70dp"
+        android:background="@android:color/transparent"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text" />
 
 </android.support.constraint.ConstraintLayout>

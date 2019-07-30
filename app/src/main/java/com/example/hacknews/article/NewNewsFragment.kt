@@ -111,7 +111,7 @@ class NewNewsFragment : HackerNewsTabFragment() {
             .subscribe(
                 { articles ->
                     Log.i("subscribe new", "Thread: ${Thread.currentThread()}")
-                    Log.i("Subscribe new", articles.toString())
+                    Log.i("subscribe new", articles.toString())
                     articles.forEach {
                         if (it.id != -1) list.add(it.toArticle())
                     }
@@ -148,22 +148,6 @@ class NewNewsFragment : HackerNewsTabFragment() {
             }
         })
     }
-
-    private fun setLoadingIndicator(active: Boolean) {
-        if (view == null) {
-            return
-        }
-        // Make sure setRefreshing() is called after the layout is done with everything else.
-//        swipeRefreshLayout?.post { swipeRefreshLayout.isRefreshing = active }
-    }
-
-    //    override fun onStart() {
-//        super.onStart()
-////        compositeDisposable.addAll()
-//        swipe_refresh.setColorSchemeColors(resources.getColor(android.R.color.holo_orange_light))
-//        swipeRefreshLayout?.setOnRefreshListener { loadNewStories() }
-////        setLoadingIndicator(true)
-//    }
 
     override fun stopLoading() {
         Log.i("NewNewsFragment", "stopLoading")

@@ -3,6 +3,7 @@ package com.example.hacknews
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import com.example.hacknews.article.SearchStoriesFragment
 import com.example.hacknews.comment.CommentsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity(), OnClickedListener {
 
     private fun openSearchTab() {
         val previouslyAddedSearchFragment = supportFragmentManager.findFragmentByTag(SEARCH_TAG)
-        val fragment = (previouslyAddedSearchFragment as? SearchFragment) ?: SearchFragment()
+        val fragment = (previouslyAddedSearchFragment as? SearchStoriesFragment) ?: SearchStoriesFragment()
 
         fragment.onNavigationChangedListener = this
 

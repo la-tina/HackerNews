@@ -1,7 +1,6 @@
 package com.example.hacknews
 
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -58,7 +57,7 @@ class ApiClient {
     }
 
     fun getApiServiceWithRx(): ApiInterface {
-        val interface1 =  getRetrofitWithRxJava().create(ApiInterface::class.java)
+        val interface1 = getRetrofitWithRxJava().create(ApiInterface::class.java)
         return interface1
     }
 }

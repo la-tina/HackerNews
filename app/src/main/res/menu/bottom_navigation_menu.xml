@@ -6,6 +6,7 @@
         android:id="@+id/action_news"
         android:icon="@drawable/ic_news"
         android:title="@string/news"
+        android:fontFamily="sans-serif-light"
         android:visible="true"
         app:showAsAction="ifRoom" />
 
@@ -13,6 +14,7 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
         android:title="@string/search"
+        android:fontFamily="sans-serif-light"
         android:visible="true"
         app:showAsAction="ifRoom" />
 </menu>

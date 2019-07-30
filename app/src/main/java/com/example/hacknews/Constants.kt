@@ -5,5 +5,4 @@ const val COMMENTS_TAG = "COMMENTS_TAG"
 const val SEARCH_TAG = "SEARCH_TAG"
 const val ARTICLE_KEY = "ARTICLE"
 const val FRAGMENT_NAME = "FRAGMENT_NAME"
-const val MAX_COUNT = 100
 const val VISIBLE_THRESHOLD = 1

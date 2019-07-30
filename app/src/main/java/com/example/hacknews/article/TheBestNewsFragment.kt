@@ -111,7 +111,7 @@ class TheBestNewsFragment : HackerNewsTabFragment() {
             .subscribe(
                 { articles ->
                     Log.i("subscribe best", "Thread: ${Thread.currentThread()}")
-                    Log.i("Subscribe best", articles.toString())
+                    Log.i("subscribe best", articles.toString())
                     articles.forEach {
                         if (it.id != -1) list.add(it.toArticle())
                     }
