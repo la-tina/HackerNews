@@ -34,6 +34,9 @@ internal class CommentsFragment : Fragment() {
 
     private val apiClient = ApiClient()
 
+    private val adapter by lazy { CommentsAdapter(requireContext(), ::loadMoreKidsListener, ::loadLessKidsListener) }
+
+    var currentParent: Int = 0
     private var articleKids: Int = 0
     private var rootId: Int = 0
     private var articleUrl: String = ""
@@ -46,6 +49,8 @@ internal class CommentsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+
+        comments_recycler_view.adapter = adapter
         Log.i("onResume", "on Resume")
         toolbarTop.setNavigationOnClickListener {
             fragmentManager?.popBackStackImmediate()
@@ -139,13 +144,16 @@ internal class CommentsFragment : Fragment() {
         ) {
             (comments_recycler_view.adapter as CommentsAdapter).addCommentsArrangement(comment)
 
-            if (kids == articleKids + commentsKids || kids == articleKids + commentsKids + 1
-                || kids == articleKids + commentsKids - 1
-            ) {
-                progress_bar_comments.visibility = View.INVISIBLE
-                comments_recycler_view.visibility = View.VISIBLE
-            }
+            progress_bar_comments.visibility = View.INVISIBLE
+            comments_recycler_view.visibility = View.VISIBLE
         }
+    }
+
+    private fun substractCommentFromList(commentId: Int) {
+        (comments_recycler_view.adapter as CommentsAdapter).substractCommentsArrangement(commentId)
+
+        progress_bar_comments.visibility = View.INVISIBLE
+        comments_recycler_view.visibility = View.VISIBLE
     }
 
     private fun requestCurrentArticleData(articleId: Int) {
@@ -176,6 +184,7 @@ internal class CommentsFragment : Fragment() {
 
                     if (articleKid != null) {
                         addChildren(0, articleKid.commentId!!)
+                        currentParent = articleKid.commentParent!!
                     }
                 }
                 , { println("onError!") }
@@ -190,22 +199,28 @@ internal class CommentsFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { articleKid ->
-                    kids++
                     //add comments to the commentsList
-                    val parentComment = buildCommentFromResponse(depth, articleKid)
+                    val currentComment = buildCommentFromResponse(depth, articleKid)
 
-                    if (parentComment != null) addCommentToList(parentComment)
-
-                    val commentKids = articleKid.commentKids
-
-                    for (child in commentKids!!) {
-                        commentsKids++
-                        addChildren(depth + 1, child)
-                    }
+                    if (currentComment != null) addCommentToList(currentComment)
                 }
                 , { println("onError!") }
                 , { println("onComplete!") })
         )
+    }
+
+    private fun loadMoreKidsListener(commentKids: List<Int>?, currentComment: Comment?, depth: Int) {
+        for (child in commentKids!!) {
+            currentParent = currentComment?.commentId!!
+            addChildren(depth + 1, child)
+        }
+    }
+
+    private fun loadLessKidsListener(commentKids: List<Int>?, currentComment: Comment?) {
+        for (child in commentKids!!) {
+            currentParent = currentComment?.commentId!!
+            substractCommentFromList(child)
+        }
     }
 
     private fun buildCommentFromResponse(depth: Int, response: CommentResponse): Comment? =
@@ -217,12 +232,12 @@ internal class CommentsFragment : Fragment() {
             val parent = responseBody.commentParent ?: -1
             val kids = responseBody.commentKids
             val type = responseBody.commentType ?: ""
-            Comment(id, author, time, text, parent, kids, type, depth)
+            Comment(id, author, time, text, parent, kids, type, depth, false)
         }
 
     private fun setupEmptyView() {
         val comments = comments_recycler_view?.adapter
-        if (comments?.itemCount == 0) {
+        if (comments?.itemCount == 0 || comments?.itemCount == null) {
             comments_recycler_view.visibility = View.GONE
             empty_view_comments.visibility = View.VISIBLE
             empty_view_comments_text.visibility = View.VISIBLE
@@ -235,7 +250,8 @@ internal class CommentsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         comments_recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        comments_recycler_view.adapter = CommentsAdapter(requireContext())
+        comments_recycler_view.adapter =
+            CommentsAdapter(requireContext(), ::loadMoreKidsListener, ::loadLessKidsListener)
     }
 }
 

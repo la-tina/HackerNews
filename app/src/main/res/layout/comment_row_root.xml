@@ -45,6 +45,30 @@
         app:layout_constraintTop_toBottomOf="@id/user"
         tools:text="11/20/1994" />
 
+    <ImageView
+        android:id="@+id/arrow_down"
+        android:layout_width="35dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toTopOf="@+id/comment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/arrow_up"
+        android:layout_width="35dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_arrow_up"
+        app:layout_constraintBottom_toTopOf="@+id/comment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/comment"
         android:layout_width="match_parent"
@@ -53,9 +77,24 @@
         android:fontFamily="sans-serif-light"
         android:padding="8dp"
         android:paddingStart="12dp"
-        android:textSize="14dp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/date"
         tools:text="comment" />
+
+    <!--app:layout_constraintBottom_toTopOf="@id/dots"-->
+    <!--<TextView-->
+        <!--android:id="@+id/dots"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/user"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:fontFamily="sans-serif-light"-->
+        <!--android:textSize="15sp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@id/comment_layout"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--tools:text="..." />-->
 </android.support.constraint.ConstraintLayout>

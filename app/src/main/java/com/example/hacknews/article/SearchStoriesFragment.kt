@@ -107,6 +107,10 @@ class SearchStoriesFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext {
                 Log.i("onNext filtered", "Thread: ${Thread.currentThread()}")
+                if (it.isEmpty()) {
+                    setupEmptyView()
+                    progress_bar_search?.visibility = View.INVISIBLE
+                }
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -125,6 +129,19 @@ class SearchStoriesFragment : Fragment() {
                     progress_bar_search?.visibility = View.INVISIBLE
                 })
         compositeDisposable.add(disposable)
+    }
+
+    private fun setupEmptyView() {
+        val comments = search_recycler_view?.adapter
+        if (comments?.itemCount == 0) {
+            search_recycler_view.visibility = View.GONE
+            empty_view_search.visibility = View.VISIBLE
+            empty_view_search_text.visibility = View.VISIBLE
+        } else {
+            search_recycler_view.visibility = View.VISIBLE
+            empty_view_search.visibility = View.GONE
+            empty_view_search_text.visibility = View.GONE
+        }
     }
 
     private fun setupRecyclerView() {

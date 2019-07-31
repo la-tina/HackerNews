@@ -13,4 +13,5 @@
     <string name="no_comments_yet">No comments yet!</string>
     <string name="title">Title</string>
     <string name="time">Time</string>
+    <string name="no_results_found_try_different_keyword">No news found. Try with different keyword.</string>
 </resources>

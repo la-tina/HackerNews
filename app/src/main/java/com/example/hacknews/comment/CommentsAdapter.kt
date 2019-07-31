@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.comment_row_root.view.*
@@ -16,10 +17,12 @@ import java.util.concurrent.TimeUnit
 
 
 internal class CommentsAdapter(
-    context: Context
+    context: Context,
+    private val loadMoreKidsListener: (commentKids: List<Int>?, currentComment: Comment?, depth: Int) -> Unit,
+    private val loadLessKidsListener: (commentKids: List<Int>?, currentComment: Comment?) -> Unit
 ) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
 
-    private val comments: MutableList<Comment> = mutableListOf()
+    private var comments: MutableList<Comment> = mutableListOf()
     private val commentColors = context.resources.getIntArray(com.example.hacknews.R.array.commentColors)
 
     fun addCommentsArrangement(comment: Comment) {
@@ -29,6 +32,12 @@ internal class CommentsAdapter(
         } else {
             comments.add(parentIndexInList + 1, comment)
         }
+        notifyDataSetChanged()
+    }
+
+    fun substractCommentsArrangement(commentId: Int) {
+        val comment = comments.filter { comment ->  comment.commentId == commentId}
+        comments = comments.minus(comment) as MutableList<Comment>
         notifyDataSetChanged()
     }
 
@@ -53,6 +62,34 @@ internal class CommentsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = comments[position]
 
+        if (comments[position].kids != null) {
+            if (comments[position].unFolded) {
+                holder.arrowUpImg.visibility = View.VISIBLE
+                holder.arrowDownImg.visibility = View.INVISIBLE
+            } else {
+                holder.arrowDownImg.visibility = View.VISIBLE
+                holder.arrowUpImg.visibility = View.INVISIBLE
+            }
+        } else {
+            holder.arrowDownImg.visibility = View.INVISIBLE
+            holder.arrowUpImg.visibility = View.INVISIBLE
+        }
+
+        holder.arrowDownImg.setOnClickListener {
+            comments[position].unFolded = true
+            loadMoreKidsListener(comments[position].kids, comments[position], comments[position].depth)
+        }
+
+        holder.arrowUpImg.setOnClickListener {
+            comments[position].unFolded = false
+            loadLessKidsListener(comments[position].kids, comments[position])
+        }
+
+//        holder.commentLayout.setOnClickListener {
+//            val params = holder.commentLayout.layoutParams
+//            params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+//        }
+
         val list = item.commentText.toString()
             .replace("&#x27;", "'")
             .replace("<p>", "\n")
@@ -64,8 +101,6 @@ internal class CommentsAdapter(
             .replace("<a href=", " ")
             .replace("rel=", "\n")
             .replace("</a>", "\n")
-
-
 
         holder.comment.text = list
         val simpleDataFormat = SimpleDateFormat.getDateTimeInstance()
@@ -82,17 +117,20 @@ internal class CommentsAdapter(
             holder.color?.setBackgroundColor(commentColors[commentColors.size - 2])
             holder.user.setTextColor(commentColors[commentColors.size - 2])
             holder.date.setTextColor(commentColors[commentColors.size - 2])
+            holder.arrowDownImg.setColorFilter(commentColors[commentColors.size - 2])
+            holder.arrowUpImg.setColorFilter(commentColors[commentColors.size - 2])
         } else {
             holder.color?.setBackgroundColor(commentColors[item.depth])
             holder.user.setTextColor(commentColors[item.depth])
             holder.date.setTextColor(commentColors[item.depth])
+            holder.arrowDownImg.setColorFilter(commentColors[item.depth])
+            holder.arrowUpImg.setColorFilter(commentColors[item.depth])
         }
         holder.itemView.layoutParams = params
         setRowPadding(holder, item)
     }
 
     private fun convertTime(time: String, holder: ViewHolder) {
-
         val format = SimpleDateFormat("dd MMM yyyy HH:mm:ss")
 
         val past = format.parse(time)
@@ -122,6 +160,8 @@ internal class CommentsAdapter(
         val color: View? = itemView.color as View
         val comment: TextView = itemView.comment as TextView
         var commentLayout: ConstraintLayout = itemView.comment_layout as ConstraintLayout
+        val arrowDownImg: ImageView = itemView.arrow_down as ImageView
+        val arrowUpImg: ImageView = itemView.arrow_up as ImageView
     }
 }
 

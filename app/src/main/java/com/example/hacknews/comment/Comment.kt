@@ -8,5 +8,6 @@ data class Comment(
     val parent: Int,
     val kids: List<Int>?,
     var type: String,
-    var depth: Int
+    var depth: Int,
+    var unFolded: Boolean
 )
