@@ -8,5 +8,6 @@ data class Article(
     var descendants: String,
     var type: String,
     var time: String,
-    var id: Int
+    var id: Int,
+    var isFavourite: Boolean
 )

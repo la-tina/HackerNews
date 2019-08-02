@@ -34,7 +34,7 @@ internal class CommentsFragment : Fragment() {
 
     private val apiClient = ApiClient()
 
-    private val adapter by lazy { CommentsAdapter(requireContext(), ::loadMoreKidsListener, ::loadLessKidsListener) }
+    private val adapter by lazy { CommentsAdapter(requireContext(), ::loadMoreKidsListener) }
 
     var currentParent: Int = 0
     private var articleKids: Int = 0
@@ -149,13 +149,6 @@ internal class CommentsFragment : Fragment() {
         }
     }
 
-    private fun substractCommentFromList(commentId: Int) {
-        (comments_recycler_view.adapter as CommentsAdapter).substractCommentsArrangement(commentId)
-
-        progress_bar_comments.visibility = View.INVISIBLE
-        comments_recycler_view.visibility = View.VISIBLE
-    }
-
     private fun requestCurrentArticleData(articleId: Int) {
         val observable = apiClient.getApiServiceWithRx().getArticle(articleId)
             .observeOn(AndroidSchedulers.mainThread())
@@ -163,7 +156,6 @@ internal class CommentsFragment : Fragment() {
                 articleTitleTextView.text = it.title!!
                 articleUrl = it.url!!
                 if (it.kids == null) setupEmptyView()
-                articleKids = it.kids?.size!!
             }
             .flatMap { article ->
                 articleRes = article
@@ -216,13 +208,6 @@ internal class CommentsFragment : Fragment() {
         }
     }
 
-    private fun loadLessKidsListener(commentKids: List<Int>?, currentComment: Comment?) {
-        for (child in commentKids!!) {
-            currentParent = currentComment?.commentId!!
-            substractCommentFromList(child)
-        }
-    }
-
     private fun buildCommentFromResponse(depth: Int, response: CommentResponse): Comment? =
         response.let { responseBody ->
             val id = responseBody.commentId
@@ -232,7 +217,7 @@ internal class CommentsFragment : Fragment() {
             val parent = responseBody.commentParent ?: -1
             val kids = responseBody.commentKids
             val type = responseBody.commentType ?: ""
-            Comment(id, author, time, text, parent, kids, type, depth, false)
+            Comment(id, author, time, text, parent, kids, type, depth, unFolded = false)
         }
 
     private fun setupEmptyView() {
@@ -251,7 +236,7 @@ internal class CommentsFragment : Fragment() {
     private fun setupRecyclerView() {
         comments_recycler_view.layoutManager = LinearLayoutManager(requireContext())
         comments_recycler_view.adapter =
-            CommentsAdapter(requireContext(), ::loadMoreKidsListener, ::loadLessKidsListener)
+            CommentsAdapter(requireContext(), ::loadMoreKidsListener)
     }
 }
 

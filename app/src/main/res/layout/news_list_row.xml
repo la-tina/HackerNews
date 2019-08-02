@@ -98,11 +98,11 @@
         android:id="@+id/by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:src="@drawable/ic_person"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/news_row_author"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-        app:layout_constraintTop_toTopOf="@+id/news_row_author" />
+        app:layout_constraintTop_toTopOf="@+id/news_row_author"  />
 
     <TextView
         android:id="@+id/news_row_author"
@@ -120,6 +120,7 @@
         android:id="@+id/news_row_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
         android:fontFamily="sans-serif-light"
         android:padding="2dp"
@@ -127,7 +128,8 @@
         android:textAlignment="viewStart"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/white_view"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favorite_icon" />
 
     <ImageView
         android:id="@+id/comment_icon"
@@ -145,19 +147,39 @@
         android:layout_width="27dp"
         android:layout_height="22dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="5dp"
         android:src="@drawable/ic_share_orange"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/news_row_comments"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/favorite_border_icon"
+        android:layout_width="27dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_favourite_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/share_icon" />
+
+    <ImageView
+        android:id="@+id/favorite_icon"
+        android:layout_width="27dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_favourite"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/share_icon" />
 
     <View
         android:id="@+id/white_view"
         android:layout_width="match_parent"
-        android:layout_height="22dp"
+        android:layout_height="25dp"
         android:backgroundTint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

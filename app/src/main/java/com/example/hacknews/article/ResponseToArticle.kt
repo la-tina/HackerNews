@@ -15,5 +15,5 @@ fun ArticleResponse.toArticle(): Article {
 
     val url = url.toString()
 
-    return Article(title, url, author, score, descendants, type, time, id)
+    return Article(title, url, author, score, descendants, type, time, id, false)
 }

@@ -17,10 +17,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-
-class NewsAdapter(
+class FavouriteNewsAdapter(
     private val context: Context,
-    private val articles: MutableList<Article>,
     listener: OnClickedListener,
     private val startActivity: (Intent) -> Unit,
     val addArticleToDatabase: (FavouriteArticle) -> Unit,
@@ -28,8 +26,7 @@ class NewsAdapter(
 ) : RecyclerView.Adapter<NewsViewHolder>() {
 
     var onNavigationChangedListener: OnClickedListener = listener
-
-    private var favouriteNews: MutableList<FavouriteArticle> = mutableListOf()
+    private var articles: MutableList<FavouriteArticle> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
@@ -44,10 +41,9 @@ class NewsAdapter(
         return articles.size
     }
 
-    @Synchronized
-    internal fun setFavouriteNews(favouriteArticles: List<FavouriteArticle>) {
-        this.favouriteNews.clear()
-        this.favouriteNews.addAll(favouriteArticles)
+    internal fun setProducts(favouriteArticles: List<FavouriteArticle>) {
+        this.articles.clear()
+        this.articles.addAll(favouriteArticles)
         notifyDataSetChanged()
     }
 
@@ -71,31 +67,12 @@ class NewsAdapter(
             onNavigationChangedListener.onArticleCommentsClicked(articles[position].id)
         }
 
-        if (isFavourite(position)) {
-            articles[position].isFavourite = true
-            holder.favouriteImg.visibility = View.VISIBLE
-            holder.favouriteBorderImg.visibility = View.INVISIBLE
-        }
+        holder.favouriteImg.visibility = View.VISIBLE
+        holder.favouriteBorderImg.visibility = View.INVISIBLE
+
         holder.favouriteBorderImg.setOnClickListener {
-            if (isFavourite(position)) {
-                Toast.makeText(context, "Already in favourites!", Toast.LENGTH_SHORT).show()
-            } else {
-                articles[position].isFavourite = true
-                Toast.makeText(context, "Added to favourites!", Toast.LENGTH_SHORT).show()
-                addArticleToDatabase(
-                    FavouriteArticle(
-                        articles[position].title,
-                        articles[position].url,
-                        articles[position].author,
-                        articles[position].score,
-                        articles[position].descendants,
-                        articles[position].type,
-                        articles[position].time,
-                        articles[position].isFavourite,
-                        articles[position].id
-                    )
-                )
-            }
+            articles[position].isFavourite = true
+            addArticleToDatabase(articles[position])
             holder.favouriteBorderImg.visibility = View.INVISIBLE
             holder.favouriteImg.visibility = View.VISIBLE
         }
@@ -103,19 +80,7 @@ class NewsAdapter(
         holder.favouriteImg.setOnClickListener {
             articles[position].isFavourite = false
             Toast.makeText(context, "Removed from favourites!", Toast.LENGTH_SHORT).show()
-            deleteArticleFromDatabase(
-                FavouriteArticle(
-                    articles[position].title,
-                    articles[position].url,
-                    articles[position].author,
-                    articles[position].score,
-                    articles[position].descendants,
-                    articles[position].type,
-                    articles[position].time,
-                    articles[position].isFavourite,
-                    articles[position].id
-                )
-            )
+            deleteArticleFromDatabase(articles[position])
             holder.favouriteBorderImg.visibility = View.VISIBLE
             holder.favouriteImg.visibility = View.INVISIBLE
         }
@@ -128,12 +93,6 @@ class NewsAdapter(
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody)
             startActivity(Intent.createChooser(sharingIntent, "Share via"))
         }
-    }
-
-    private fun isFavourite(position: Int): Boolean {
-        val isFavouriteArticle =
-            favouriteNews.filter { favouriteArticle -> favouriteArticle.id == articles[position].id }
-        return !isFavouriteArticle.isEmpty()
     }
 
     @SuppressLint("SetTextI18n")
@@ -195,3 +154,5 @@ class NewsAdapter(
         }
     }
 }
+
+

@@ -17,4 +17,12 @@
         android:fontFamily="sans-serif-light"
         android:visible="true"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_favourite"
+        android:icon="@drawable/ic_favourite"
+        android:title="@string/favourite"
+        android:fontFamily="sans-serif-light"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
 </menu>

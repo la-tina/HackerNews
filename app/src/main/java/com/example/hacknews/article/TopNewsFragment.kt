@@ -1,5 +1,6 @@
 package com.example.hacknews.article
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.hacknews.*
+import com.example.hacknews.articles_database.FavouriteArticle
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,7 +29,16 @@ class TopNewsFragment : HackerNewsTabFragment() {
     private var list: MutableList<Article> = mutableListOf()
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private val adapter by lazy { NewsAdapter(requireContext(), list, listener!!, ::startActivity) }
+    private val adapter by lazy {
+        NewsAdapter(
+            requireContext(),
+            list,
+            listener!!,
+            ::startActivity,
+            ::addArticleToDatabase,
+            ::deleteArticleFromDatabase
+        )
+    }
 
     private val paginator = BehaviorProcessor.create<Int>()
     private var loading = false
@@ -160,7 +171,21 @@ class TopNewsFragment : HackerNewsTabFragment() {
 
     override fun setupRecyclerView() {
         top_news_recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        val newsAdapter = NewsAdapter(requireContext(), list, listener!!, ::startActivity)
+        val newsAdapter = NewsAdapter(
+            requireContext(),
+            list,
+            listener!!,
+            ::startActivity,
+            ::addArticleToDatabase,
+            ::deleteArticleFromDatabase
+        )
         top_news_recycler_view.adapter = newsAdapter
+
+        articleViewModel.allFavouriteArticles.observe(this, Observer { articles ->
+            // Update the cached copy of the words in the adapter.
+            articles?.let {
+                adapter.setFavouriteNews(it)
+            }
+        })
     }
 }

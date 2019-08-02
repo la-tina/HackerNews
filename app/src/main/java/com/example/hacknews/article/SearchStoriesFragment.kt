@@ -1,6 +1,8 @@
 package com.example.hacknews.article
 
 import android.app.Activity
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -15,6 +17,8 @@ import android.widget.EditText
 import com.example.hacknews.ApiClient
 import com.example.hacknews.OnClickedListener
 import com.example.hacknews.R
+import com.example.hacknews.articles_database.ArticleViewModel
+import com.example.hacknews.articles_database.FavouriteArticle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,13 +29,26 @@ class SearchStoriesFragment : Fragment() {
 
     lateinit var onNavigationChangedListener: OnClickedListener
 
+    private val articleViewModel: ArticleViewModel by lazy {
+        ViewModelProviders.of(this).get(ArticleViewModel(requireActivity().application)::class.java)
+    }
+
     private val apiClient = ApiClient()
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private var listener: OnClickedListener? = null
 
     private val storiesList: MutableList<Article> = mutableListOf()
-    private val adapter by lazy { NewsAdapter(requireContext(), storiesList, listener!!, ::startActivity) }
+    private val adapter by lazy {
+        NewsAdapter(
+            requireContext(),
+            storiesList,
+            listener!!,
+            ::startActivity,
+            ::addArticleToDatabase,
+            ::deleteArticleFromDatabase
+        )
+    }
 
     private var searchedString: String = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -41,7 +58,6 @@ class SearchStoriesFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         listener = onNavigationChangedListener
-        setupRecyclerView()
     }
 
     @Synchronized
@@ -49,11 +65,16 @@ class SearchStoriesFragment : Fragment() {
         super.onResume()
         Log.i("onResume", "SearchStoriesFragment load")
 
+        setupRecyclerView()
         search_recycler_view.adapter = adapter
 
         search_button.setOnClickListener {
             Log.i("loadStories", "button clicked")
             storiesList.clear()
+            entry_text_search?.visibility = View.INVISIBLE
+            entry_image_search?.visibility = View.INVISIBLE
+            empty_view_search_text.visibility = View.INVISIBLE
+            empty_view_search.visibility = View.INVISIBLE
             hideKeyboard(requireActivity())
 
             if (search_edit_text != null && !search_edit_text.text.isBlank()) {
@@ -68,6 +89,14 @@ class SearchStoriesFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable.dispose()
+    }
+
+    private fun addArticleToDatabase(article: FavouriteArticle) {
+        articleViewModel.insert(article)
+    }
+
+    private fun deleteArticleFromDatabase(article: FavouriteArticle) {
+        articleViewModel.deleteFavouriteArticle(article)
     }
 
     private fun hideKeyboard(activity: Activity) {
@@ -88,7 +117,7 @@ class SearchStoriesFragment : Fragment() {
             .mergeWith(observableTop)
             .mergeWith(observableBest)
             .concatMap { articleIds ->
-                Log.i("flatMap2", "articleIDs: $articleIds, Thread: ${Thread.currentThread()}")
+                Log.i("flatMapSearch", "articleIDs: $articleIds, Thread: ${Thread.currentThread()}")
                 val requests =
                     articleIds.map {
                         apiClient.getApiServiceWithRx().getArticle(it).subscribeOn(Schedulers.io())
@@ -98,6 +127,7 @@ class SearchStoriesFragment : Fragment() {
                 }.sorted()
             }
             .map { responses ->
+                Log.i("onNext map filter", "Thread: ${Thread.currentThread()}")
                 responses.filter {
                     it.title != null && it.type == "story" && it.title?.toLowerCase()!!.contains(
                         searchedString.toLowerCase()
@@ -109,6 +139,8 @@ class SearchStoriesFragment : Fragment() {
                 Log.i("onNext filtered", "Thread: ${Thread.currentThread()}")
                 if (it.isEmpty()) {
                     setupEmptyView()
+                    entry_text_search?.visibility = View.INVISIBLE
+                    entry_image_search?.visibility = View.INVISIBLE
                     progress_bar_search?.visibility = View.INVISIBLE
                 }
             }
@@ -126,8 +158,11 @@ class SearchStoriesFragment : Fragment() {
                 , { it.printStackTrace() }
                 , {
                     println("onComplete!")
+                    entry_text_search?.visibility = View.INVISIBLE
+                    entry_image_search?.visibility = View.INVISIBLE
                     progress_bar_search?.visibility = View.INVISIBLE
                 })
+
         compositeDisposable.add(disposable)
     }
 
@@ -146,7 +181,21 @@ class SearchStoriesFragment : Fragment() {
 
     private fun setupRecyclerView() {
         search_recycler_view.layoutManager = LinearLayoutManager(requireContext())
-        val filteredNewsAdapter = NewsAdapter(requireContext(), storiesList, listener!!, ::startActivity)
+        val filteredNewsAdapter = NewsAdapter(
+            requireContext(),
+            storiesList,
+            listener!!,
+            ::startActivity,
+            ::addArticleToDatabase,
+            ::deleteArticleFromDatabase
+        )
         search_recycler_view.adapter = filteredNewsAdapter
+
+        articleViewModel.allFavouriteArticles.observe(this, Observer { products ->
+            // Update the cached copy of the words in the adapter.
+            products?.let {
+                adapter.setFavouriteNews(it)
+            }
+        })
     }
 }

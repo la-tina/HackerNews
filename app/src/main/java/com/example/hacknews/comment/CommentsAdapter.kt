@@ -18,8 +18,7 @@ import java.util.concurrent.TimeUnit
 
 internal class CommentsAdapter(
     context: Context,
-    private val loadMoreKidsListener: (commentKids: List<Int>?, currentComment: Comment?, depth: Int) -> Unit,
-    private val loadLessKidsListener: (commentKids: List<Int>?, currentComment: Comment?) -> Unit
+    private val loadMoreKidsListener: (commentKids: List<Int>?, currentComment: Comment?, depth: Int) -> Unit
 ) : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
 
     private var comments: MutableList<Comment> = mutableListOf()
@@ -35,9 +34,19 @@ internal class CommentsAdapter(
         notifyDataSetChanged()
     }
 
+    private fun collapseComment(commentId: Int) {
+        comments
+            .filter { comment -> comment.parent == commentId }
+            .forEach {
+                substractCommentsArrangement(it.commentId!!)
+                collapseComment(it.commentId!!)
+            }
+    }
+
     fun substractCommentsArrangement(commentId: Int) {
-        val comment = comments.filter { comment ->  comment.commentId == commentId}
+        val comment = comments.filter { comment -> comment.commentId == commentId }
         comments = comments.minus(comment) as MutableList<Comment>
+        //                notifyItemRemoved(comments.indexOf(it))
         notifyDataSetChanged()
     }
 
@@ -82,7 +91,7 @@ internal class CommentsAdapter(
 
         holder.arrowUpImg.setOnClickListener {
             comments[position].unFolded = false
-            loadLessKidsListener(comments[position].kids, comments[position])
+            collapseComment(comments[position].commentId!!)
         }
 
 //        holder.commentLayout.setOnClickListener {

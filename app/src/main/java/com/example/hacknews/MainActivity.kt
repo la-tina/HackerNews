@@ -3,6 +3,7 @@ package com.example.hacknews
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import com.example.hacknews.article.FavouriteNewsFragment
 import com.example.hacknews.article.SearchStoriesFragment
 import com.example.hacknews.comment.CommentsFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,6 +45,11 @@ class MainActivity : AppCompatActivity(), OnClickedListener {
                 }
                 R.id.action_search -> {
                     openSearchTab()
+                    true
+                }
+
+                R.id.action_favourite -> {
+                    openFavouriteTab()
                     true
                 }
 
@@ -95,6 +101,15 @@ class MainActivity : AppCompatActivity(), OnClickedListener {
         fragment.onNavigationChangedListener = this
 
         openMainTab(fragment, SEARCH_TAG)
+    }
+
+    private fun openFavouriteTab() {
+        val previouslyAddedFavouriteFragment = supportFragmentManager.findFragmentByTag(FAVOURITE_TAG)
+        val fragment = (previouslyAddedFavouriteFragment as? FavouriteNewsFragment) ?: FavouriteNewsFragment()
+
+        fragment.onNavigationChangedListener = this
+
+        openMainTab(fragment, FAVOURITE_TAG)
     }
 
     private fun openCommentsTab(articleId: Int) {
